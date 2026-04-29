@@ -28,15 +28,15 @@ public class RegisterPage extends InitialClass {
     {
         String msg = null;
         selectGender(gender);
-        sendKeysByLocator(firstNameTxtBx, firstName);
-        sendKeysByLocator(lastNameTxtBx, lastName);
-        sendKeysByLocator(emailIDTxtBx, emailID);
-        sendKeysByLocator(passwordTxtBx, password);
-        sendKeysByLocator(confirmPasswordTxtBx, password);
-        clickOnElementByLocator(registerBtn);
+        sendKeysByLocator(firstNameTxtBx, "firstNameTxtBx", firstName);
+        sendKeysByLocator(lastNameTxtBx,"lastNameTxtBx", lastName);
+        sendKeysByLocator(emailIDTxtBx, "emailIDTxtBx", emailID);
+        sendKeysByLocator(passwordTxtBx, "passwordTxtBx", password);
+        sendKeysByLocator(confirmPasswordTxtBx, "confirmPasswordTxtBx", password);
+        clickOnElementByLocator(registerBtn, "Register Button");
 
-        msg =  getElementTextByLocator(registerSuccessMsg);
-        clickOnElementByLocator(continueBtn);
+        msg =  getElementTextByLocator(registerSuccessMsg, "Registered Message Area");
+        clickOnElementByLocator(continueBtn, "Continue Button");
 
         return msg;
     }
@@ -44,11 +44,11 @@ public class RegisterPage extends InitialClass {
     private void selectGender(String gender) {
         if(gender.equalsIgnoreCase("male"))
         {
-            clickOnElementByLocator(genderRadioMale);
+            clickOnElementByLocator(genderRadioMale, "genderRadioMale");
         }
         else
         {
-            clickOnElementByLocator(genderRadioFemale);
+            clickOnElementByLocator(genderRadioFemale, "genderRadioFemale");
         }
     }
 
