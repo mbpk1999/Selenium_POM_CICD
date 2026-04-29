@@ -15,7 +15,7 @@ public class RegisterUser extends DemoWorkShopBaseClass {
     String firstName = "Qwerty2";
     String lastName = "Hello";
     String email = "qwerty2@gello.com";
-    String password = "Welcome123";
+    String password = "xxxxx";
     @Test
     public void createUser()
     {
