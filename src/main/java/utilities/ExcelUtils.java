@@ -133,4 +133,83 @@ public class ExcelUtils {
     }
 
 
+    public void writeDataToExcelAppend(String filePath, String sheetName, List<String> headerSet, List<String> dataSet)
+    {
+    try {
+        File file = new File(filePath);
+        Workbook workbook;
+        FileInputStream fis = null;
+
+        // Check if file exists
+        if (file.exists()) {
+            fis = new FileInputStream(file);
+            workbook = WorkbookFactory.create(fis);
+        } else {
+            workbook = new XSSFWorkbook();
+        }
+
+        // Get or create sheet
+
+        Sheet sheet = workbook.getSheet(sheetName);
+        if (sheet == null) {
+            sheet = workbook.createSheet(sheetName);
+        }
+
+        // Check if sheet is empty and add headers if needed
+        int nextRowIndex = sheet.getLastRowNum();
+        if(nextRowIndex < 0)
+        {
+            // Position the nextRowIndex to 0 if sheet is newly created and headers are not set
+            //Since Sheet.getLastRowNum() returns -1 for an empty sheet, not 0
+            nextRowIndex = 0;
+        }
+
+        if (nextRowIndex == 0 && sheet.getRow(0) == null) {
+            // Sheet is empty, create headers
+            Row headerRow = sheet.createRow(0);
+            CellStyle headerStyle = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setColor(IndexedColors.WHITE.getIndex());
+            font.setBold(true);
+            headerStyle.setFont(font);
+            headerStyle.setFillForegroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            for (int i = 0; i < headerSet.size(); i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headerSet.get(i));
+                cell.setCellStyle(headerStyle);
+                sheet.autoSizeColumn(i);
+            }
+            nextRowIndex = 1;
+        } else {
+            // Sheet has data, append to next row
+            nextRowIndex = sheet.getLastRowNum() + 1;
+        }
+
+        // Add data row
+        if (sheet.getRow(0) != null && nextRowIndex > 0) {
+            Row dataRow = sheet.createRow(nextRowIndex);
+            for (int i = 0; i < dataSet.size(); i++) {
+                dataRow.createCell(i).setCellValue(dataSet.get(i));
+            }
+        }
+
+        // Write to file
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+            System.out.println("Data written successfully to: " + filePath);
+        }
+
+        if (fis != null) {
+            fis.close();
+        }
+        workbook.close();
+
+    } catch (IOException e) {
+        throw new RuntimeException("Error while writing to Excel file: " + e.getMessage(), e);
+    }
+}
+
+
 }

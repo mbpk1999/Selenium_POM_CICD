@@ -8,6 +8,7 @@ import utilities.DemoWorkShopBaseClass;
 import utilities.InitialClass;
 
 public class HomePage extends InitialClass {
+    By DWSLogo = By.xpath("//div[@class='header-logo']//img");
     By registerLink = By.xpath("//a[text()='Register']");
     By logInLink = By.xpath("//a[text()='Log in']");
     By shoppingCartLink = By.xpath("//span[contains(text(),'Shopping cart')]");
@@ -52,5 +53,8 @@ public class HomePage extends InitialClass {
         Thread.sleep(3000);
     }
 
-
+    public void clickDWSLogo()
+    {
+        clickOnElementByLocator(DWSLogo, "DWS Logo");
+    }
 }

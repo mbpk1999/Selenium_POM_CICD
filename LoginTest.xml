@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Login Tests" parallel="methods" thread-count="3">
+    <test verbose="2" preserve-order="true"
+          name="C:/Workspace/IntelliJ/Selenium_POM_CICD/src/test/java/demoWorkShopTest/LoginTest.java">
+        <classes>
+            <class name="demoWorkShopTest.LoginTest">
+                <methods>
+                    <include name="testLogin"/>
+                    <include name="testLogin2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
